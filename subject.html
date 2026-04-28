@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+  <meta name="viewport"  content="width=device-width,intial-scale=1.0">
+   <link rel="stylesheet" href="pbllogin.css" >
+    <title>subjects  marks details</title>
+</head>
+<body>
+    
+<center>
+<p><h3> <div1 style="width:40px; padding:10px;">ENTER MARKS OF SUBJECTS</div1></h3></p> 
+    <hr> 
+<div  class="marks" required>
+    <form id="subjectForm"
+    onsubmit="return goNext()"
+    action="display.html"></form>
+<script>
+
+    window.onload=function(){
+
+
+let course = localStorage.getItem("course");
+
+let subjects = [];
+
+if(course === "B.TECH") {
+    subjects = ["Maths", "Programming", "Physics","Chemistry","communication"];
+}
+
+else if(course === "BCA") {
+    subjects = ["programming", "Database", "Web Development","Networking"];
+}
+
+else if(course === "BBA") {
+    subjects = ["Management", "Accounts", "Economics","Business Law"];
+}
+
+else if(course === "BSC") {
+    subjects = ["Maths", "Chemistry", "Physics"];
+}
+
+else if(course === "BHM") {
+    subjects = ["Food Production", "HouseKeeping", "Front Office","Hospitality"];
+}
+
+else if(course === "MBBS") {
+    subjects = ["Anatomy", "Physiology", "Biochemistry"];
+}
+
+
+else if(course === "M.TECH") {
+    subjects = [" Advanced Maths", "AI", "Machine Learning"];
+}
+
+
+else if(course === "MCA") {
+    subjects = ["Database", "Programming", "Web Development"];
+}
+
+
+
+else if(course === "MBA") {
+    subjects = ["Management", "Marketing", "Finance"];
+}
+
+
+
+else if(course === "MSC") {
+    subjects = ["Research", "Advanced Subject", "Lab"];
+}
+
+
+
+else if(course === "MHM") {
+    subjects = ["Food Service", "Hospitality", "Management"];}
+
+let form = document.getElementById("subjectForm");
+
+
+let html = `
+<table border=5px" style="border-collapse:collapse; width: 100%; text-align:center; height:90%;">
+<tr>
+    <th>Subject</th>
+    <th>Marks</th>
+</tr>
+`;
+
+subjects.forEach(sub => {
+   html += `
+    <tr>
+        <td>${sub}</td>
+        <td><input type="number" min="0" max="100" step="1" class="marks" style="width:90%"; padding:8px; required></td>
+    </tr>
+    `;
+});
+
+html += `</table><br>
+<button type="button"  class="last" onclick="resultPage()">Submit</button>`;
+form.innerHTML = html;}
+
+</script>
+
+<script>
+
+
+function resultPage(){
+
+let inputs = document.querySelectorAll("input[type='number']");
+let total = 0;
+
+
+for(let i=0; i<inputs.length; i++){
+
+   if(inputs[i].value == ""){
+      alert("Please enter all marks");
+      return;
+   }
+
+   if(inputs[i].value < 0 || inputs[i].value > 100){
+      alert("Marks must be between 0 to 100");
+      return;
+   }
+
+   total += Number(inputs[i].value);
+
+}
+
+
+localStorage.setItem("total", total);
+localStorage.setItem("count", inputs.length);
+
+window.location.href="display.html";
+}
+</script>
+
+</div>
+</p></div>
+    <br>
+    </center>
+
+
+</body>
+</html>
